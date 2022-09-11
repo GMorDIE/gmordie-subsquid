@@ -86,7 +86,7 @@ registerEnumType(RankBy, {name: 'RankBy'})
 export class AccountRank {
     constructor(private tx: () => Promise<EntityManager>) {}
 
-    @Query(() => RankedAccount)
+    @Query(() => RankedAccount, {nullable: true})
     async rankAccount(
         @Arg("id", {nullable: false})
         id: string,
