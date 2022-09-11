@@ -76,7 +76,7 @@ class RankedAccount {
 
 enum RankBy {
     sent = 'sent_gmgn',
-    recived = 'recived_gmgn',
+    received = 'received_gmgn',
     balance = 'balance_gmgn',
 } 
 
