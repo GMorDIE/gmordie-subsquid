@@ -116,7 +116,7 @@ export class AccountRank {
 
         if (data != null) {
             const {rank, ...account} = data;
-            return new RankedAccount({rank, account: repository.create(account as Account)});
+            return new RankedAccount({rank, account: new Account(account)});
         } else {
             return null;
         }
