@@ -38,3 +38,6 @@ down:
 
 
 .PHONY: build serve process migrate codegen typegen up down
+
+deploy-preview:
+	@npx sqd squid release gmordie-frontend@preview -v
