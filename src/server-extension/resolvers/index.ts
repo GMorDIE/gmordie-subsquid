@@ -100,7 +100,13 @@ enum RankBy {
   balance = "balance_gmgn",
 }
 
+enum SortDirection {
+  DESC = "DESC",
+  ASC = "ASC",
+}
+
 registerEnumType(RankBy, { name: "RankBy" });
+registerEnumType(SortDirection, { name: "SortDirection" });
 
 @Resolver()
 export class AccountRank {
@@ -112,6 +118,8 @@ export class AccountRank {
     id: string,
     @Arg("rankedBy", () => RankBy, { nullable: false })
     rankBy: RankBy,
+    @Arg("orderDirection", () => SortDirection, { nullable: false })
+    orderDirection: SortDirection,
     @Info()
     info: GraphQLResolveInfo
   ): Promise<RankedAccount | null> {
@@ -129,7 +137,7 @@ export class AccountRank {
         `SELECT * FROM (
                     SELECT 
                         ${query.join(`, `)}, 
-                        ROW_NUMBER() OVER (ORDER BY ${rankBy} DESC, id ASC) AS "rank"
+                        ROW_NUMBER() OVER (ORDER BY ${rankBy} ${orderDirection}, id ASC) AS "rank"
                     FROM account
                 ) as ranked
                 WHERE id = '${id}'`
