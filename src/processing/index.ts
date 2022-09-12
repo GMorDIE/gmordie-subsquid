@@ -1,13 +1,19 @@
 import { TypeormDatabase } from "@subsquid/typeorm-store";
 import { In } from "typeorm";
 import { Account, Transfer } from "../model";
-import { SystemAccountStorage, TokensAccountsStorage } from "../types/storage";
+import {
+  IdentityIdentityOfStorage,
+  SystemAccountStorage,
+  TokensAccountsStorage,
+} from "../types/storage";
 import { getAccount } from "./getAccount";
 import { getFrenBurnedEvents } from "./getFrenBurnedEvents";
 import { getTransferEvents } from "./getTransferEvents";
 import { processor } from "./processor";
 import * as ss58 from "@subsquid/ss58";
 import { GMORDIE_PREFIX } from "./common";
+import { readRawValue } from "./readRawValue";
+import { getIdentity } from "./getIdentity";
 
 processor.run(new TypeormDatabase(), async (ctx) => {
   const transfersData = getTransferEvents(ctx);
@@ -79,19 +85,6 @@ processor.run(new TypeormDatabase(), async (ctx) => {
       fb.burnedForGM + fb.burnedForGN + fb.burnedForNothing;
   }
 
-  // // for (const bu of balanceUpdatesData) {
-  // //   const account = getAccount(accounts, bu.accountId);
-
-  // //   if (bu.accountId === "gMXzAeAHgYNauaafAvtL7hGpTiN7wXsntiZApbgLXoFcVEoUD")
-  // //     ctx.log.info("update");
-
-  // //   if (bu.currencyId === "FREN") account.balanceFREN = bu.amount;
-  // //   else if (bu.currencyId === "GM") account.balanceGM = bu.amount;
-  // //   else if (bu.currencyId === "GN") account.balanceGN = bu.amount;
-
-  // //   account.balanceGMGN = account.balanceGM + account.balanceGN;
-  // // }
-
   // update balances of involved accounts
   const arAccountIds = [...accountIds];
   if (arAccountIds.length) {
@@ -99,8 +92,9 @@ processor.run(new TypeormDatabase(), async (ctx) => {
 
     const sysAccountStorage = new SystemAccountStorage(ctx, block.header);
     const tokensStorage = new TokensAccountsStorage(ctx, block.header);
+    const identityOfStorage = new IdentityIdentityOfStorage(ctx, block.header);
 
-    const [frenData, gmData, gnData] = await Promise.all([
+    const [frenData, gmData, gnData, identityOfData] = await Promise.all([
       sysAccountStorage.getManyAsV3(
         arAccountIds.map((a) => ss58.codec(GMORDIE_PREFIX).decode(a))
       ),
@@ -116,6 +110,9 @@ processor.run(new TypeormDatabase(), async (ctx) => {
           { __kind: "GN" },
         ])
       ),
+      identityOfStorage.getManyAsV3(
+        arAccountIds.map((a) => ss58.codec(GMORDIE_PREFIX).decode(a))
+      ),
     ]);
 
     for (let i = 0; i < arAccountIds.length; i++) {
@@ -130,6 +127,14 @@ processor.run(new TypeormDatabase(), async (ctx) => {
       account.balanceGM = gm.free + gm.reserved + gm.frozen;
       account.balanceGN = gn.free + gn.reserved + gn.frozen;
       account.balanceGMGN = account.balanceGM + account.balanceGN;
+
+      const identity = identityOfData[i];
+      const { display, discord, twitter, verified } = getIdentity(identity);
+
+      account.display = display;
+      account.discord = discord;
+      account.twitter = twitter;
+      account.verified = verified;
     }
   }
 

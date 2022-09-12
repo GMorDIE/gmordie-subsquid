@@ -3,5 +3,5 @@
   "specVersions": "https://gmordie.archive.subsquid.io/graphql",
   "events": ["Balances.Transfer", "Tokens.Transfer", "Currencies.FrenBurned"],
   "calls": [],
-  "storage": ["System.Account", "Tokens.Accounts"]
+  "storage": ["System.Account", "Tokens.Accounts", "Identity.IdentityOf"]
 }
