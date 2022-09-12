@@ -1,5 +1,5 @@
-module.exports = class Init1662300815035 {
-  name = 'Init1662300815035'
+module.exports = class Init1662994517720 {
+  name = 'Init1662994517720'
 
   async up(db) {
     await db.query(`CREATE TABLE "transfer" ("id" character varying NOT NULL, "block_number" integer NOT NULL, "timestamp" TIMESTAMP WITH TIME ZONE NOT NULL, "extrinsic_hash" text, "currency" text NOT NULL, "amount" numeric NOT NULL, "fee" numeric NOT NULL, "from_id" character varying NOT NULL, "to_id" character varying NOT NULL, CONSTRAINT "PK_fd9ddbdd49a17afcbe014401295" PRIMARY KEY ("id"))`)
@@ -10,7 +10,7 @@ module.exports = class Init1662300815035 {
     await db.query(`CREATE INDEX "IDX_0751309c66e97eac9ef1149362" ON "transfer" ("to_id") `)
     await db.query(`CREATE INDEX "IDX_a2149e84ca1fc59b73f2ed05fa" ON "transfer" ("currency") `)
     await db.query(`CREATE INDEX "IDX_f4007436c1b546ede08a4fd7ab" ON "transfer" ("amount") `)
-    await db.query(`CREATE TABLE "account" ("id" character varying NOT NULL, "sent_gm" numeric NOT NULL, "sent_gn" numeric NOT NULL, "sent_gmgn" numeric NOT NULL, "received_gm" numeric NOT NULL, "received_gn" numeric NOT NULL, "received_gmgn" numeric NOT NULL, "burned_for_gm" numeric NOT NULL, "burned_for_gn" numeric NOT NULL, "burned_for_gmgn" numeric NOT NULL, "burned_for_nothing" numeric NOT NULL, "burned_total" numeric NOT NULL, "balance_gm" numeric NOT NULL, "balance_gn" numeric NOT NULL, "balance_gmgn" numeric NOT NULL, "balance_fren" numeric NOT NULL, CONSTRAINT "PK_54115ee388cdb6d86bb4bf5b2ea" PRIMARY KEY ("id"))`)
+    await db.query(`CREATE TABLE "account" ("id" character varying NOT NULL, "sent_gm" numeric NOT NULL, "sent_gn" numeric NOT NULL, "sent_gmgn" numeric NOT NULL, "received_gm" numeric NOT NULL, "received_gn" numeric NOT NULL, "received_gmgn" numeric NOT NULL, "burned_for_gm" numeric NOT NULL, "burned_for_gn" numeric NOT NULL, "burned_for_gmgn" numeric NOT NULL, "burned_for_nothing" numeric NOT NULL, "burned_total" numeric NOT NULL, "balance_gm" numeric NOT NULL, "balance_gn" numeric NOT NULL, "balance_gmgn" numeric NOT NULL, "balance_fren" numeric NOT NULL, "display" text, "discord" text, "twitter" text, "verified" boolean, CONSTRAINT "PK_54115ee388cdb6d86bb4bf5b2ea" PRIMARY KEY ("id"))`)
     await db.query(`CREATE INDEX "IDX_754697be6a17a967e9116f00dc" ON "account" ("sent_gm") `)
     await db.query(`CREATE INDEX "IDX_09f2abb7b2513077f268cf69b2" ON "account" ("sent_gn") `)
     await db.query(`CREATE INDEX "IDX_0ca81241671198a22f6a7c82e9" ON "account" ("sent_gmgn") `)

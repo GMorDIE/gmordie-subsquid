@@ -79,4 +79,16 @@ export class Account {
   @Index_()
   @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
   balanceFREN!: bigint
+
+  @Column_("text", {nullable: true})
+  display!: string | undefined | null
+
+  @Column_("text", {nullable: true})
+  discord!: string | undefined | null
+
+  @Column_("text", {nullable: true})
+  twitter!: string | undefined | null
+
+  @Column_("bool", {nullable: true})
+  verified!: boolean | undefined | null
 }

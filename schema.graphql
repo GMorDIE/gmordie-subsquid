@@ -24,6 +24,10 @@ type Account @entity {
   balanceGN: BigInt! @index
   balanceGMGN: BigInt! @index
   balanceFREN: BigInt! @index
+  display: String
+  discord: String
+  twitter: String
+  verified: Boolean
 }
 
 type Transfer @entity {
