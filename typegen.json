@@ -1,7 +1,15 @@
 {
   "outDir": "src/types",
   "specVersions": "https://gmordie.archive.subsquid.io/graphql",
-  "events": ["Balances.Transfer", "Tokens.Transfer", "Currencies.FrenBurned"],
+  "events": [
+    "Balances.Transfer",
+    "Tokens.Transfer",
+    "Currencies.FrenBurned",
+    "Identity.IdentitySet",
+    "Identity.IdentityKilled",
+    "Identity.IdentityCleared",
+    "Identity.JudgementGiven"
+  ],
   "calls": [],
   "storage": ["System.Account", "Tokens.Accounts", "Identity.IdentityOf"]
 }

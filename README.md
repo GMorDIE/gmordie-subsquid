@@ -316,6 +316,14 @@ For more details, consult [Docs](https://docs.subsquid.io/reference/api-extensio
 ```graphql
 # Test queries
 query MyQuery {
+  accountById(id: "gMUYn4gzb8g6CfpPLTrz43j3qsQStv82HuoQz8f18ehUpcceT") {
+    id
+    balanceGMGN
+    receivedGMGN
+    sentGMGN
+    display
+    verified
+  }
   accounts(orderBy: sentGMGN_DESC, limit: 3) {
     sentGMGN
     verified
@@ -332,9 +340,13 @@ query MyQuery {
     currency
     from {
       id
-      transfersTo {
-        id
-      }
+      display
+      verified
+    }
+    to {
+      id
+      display
+      verified
     }
   }
 }

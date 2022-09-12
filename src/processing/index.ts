@@ -14,10 +14,12 @@ import * as ss58 from "@subsquid/ss58";
 import { GMORDIE_PREFIX } from "./common";
 import { readRawValue } from "./readRawValue";
 import { getIdentity } from "./getIdentity";
+import { getJudgementEvents } from "./getJudgementEvents";
 
 processor.run(new TypeormDatabase(), async (ctx) => {
   const transfersData = getTransferEvents(ctx);
   const frenBurnedData = getFrenBurnedEvents(ctx);
+  const judgementsData = getJudgementEvents(ctx);
 
   const accountIds = new Set<string>();
   for (let t of transfersData) {
@@ -25,6 +27,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
     accountIds.add(t.to);
   }
   for (const fb of frenBurnedData) accountIds.add(fb.accountId);
+  for (const j of judgementsData) accountIds.add(j.accountId);
 
   const accounts = await ctx.store
     .findBy(Account, { id: In([...accountIds]) })
