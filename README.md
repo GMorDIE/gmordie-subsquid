@@ -312,3 +312,42 @@ For instance, account data is passed to the handler context as a plain byte arra
 It is possible to extend `squid-graphql-server(1)` with custom
 [type-graphql](https://typegraphql.com) resolvers and to add request validation.
 For more details, consult [Docs](https://docs.subsquid.io/reference/api-extensions)
+
+```graphql
+# Test queries
+query MyQuery {
+  accountById(id: "gMUYn4gzb8g6CfpPLTrz43j3qsQStv82HuoQz8f18ehUpcceT") {
+    id
+    balanceGMGN
+    receivedGMGN
+    sentGMGN
+    display
+    verified
+  }
+  accounts(orderBy: sentGMGN_DESC, limit: 3) {
+    sentGMGN
+    verified
+    twitter
+    discord
+    display
+  }
+  transfers(
+    orderBy: blockNumber_DESC
+    limit: 10
+    where: { currency_in: ["GM", "GN"] }
+  ) {
+    amount
+    currency
+    from {
+      id
+      display
+      verified
+    }
+    to {
+      id
+      display
+      verified
+    }
+  }
+}
+```

@@ -54,6 +54,122 @@ export class CurrenciesFrenBurnedEvent {
   }
 }
 
+export class IdentityIdentityClearedEvent {
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'Identity.IdentityCleared')
+    this._chain = ctx._chain
+    this.event = event
+  }
+
+  /**
+   * A name was cleared, and the given balance returned.
+   */
+  get isV3(): boolean {
+    return this._chain.getEventHash('Identity.IdentityCleared') === '569627bf2a8105e3949fd62dcaae8174fb02f8afedb8e5d8a7fecda5d63b25c3'
+  }
+
+  /**
+   * A name was cleared, and the given balance returned.
+   */
+  get asV3(): {who: Uint8Array, deposit: bigint} {
+    assert(this.isV3)
+    return this._chain.decodeEvent(this.event)
+  }
+}
+
+export class IdentityIdentityKilledEvent {
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'Identity.IdentityKilled')
+    this._chain = ctx._chain
+    this.event = event
+  }
+
+  /**
+   * A name was removed and the given balance slashed.
+   */
+  get isV3(): boolean {
+    return this._chain.getEventHash('Identity.IdentityKilled') === '569627bf2a8105e3949fd62dcaae8174fb02f8afedb8e5d8a7fecda5d63b25c3'
+  }
+
+  /**
+   * A name was removed and the given balance slashed.
+   */
+  get asV3(): {who: Uint8Array, deposit: bigint} {
+    assert(this.isV3)
+    return this._chain.decodeEvent(this.event)
+  }
+}
+
+export class IdentityIdentitySetEvent {
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'Identity.IdentitySet')
+    this._chain = ctx._chain
+    this.event = event
+  }
+
+  /**
+   * A name was set or reset (which will remove all judgements).
+   */
+  get isV3(): boolean {
+    return this._chain.getEventHash('Identity.IdentitySet') === 'b8a0d2208835f6ada60dd21cd93533d703777b3779109a7c6a2f26bad68c2f3b'
+  }
+
+  /**
+   * A name was set or reset (which will remove all judgements).
+   */
+  get asV3(): {who: Uint8Array} {
+    assert(this.isV3)
+    return this._chain.decodeEvent(this.event)
+  }
+}
+
+export class IdentityJudgementGivenEvent {
+  private readonly _chain: Chain
+  private readonly event: Event
+
+  constructor(ctx: EventContext)
+  constructor(ctx: ChainContext, event: Event)
+  constructor(ctx: EventContext, event?: Event) {
+    event = event || ctx.event
+    assert(event.name === 'Identity.JudgementGiven')
+    this._chain = ctx._chain
+    this.event = event
+  }
+
+  /**
+   * A judgement was given by a registrar.
+   */
+  get isV3(): boolean {
+    return this._chain.getEventHash('Identity.JudgementGiven') === '0771fa05d0977d28db0dee420efa5c006fa01a48edbd0b5b50cba5ea1d98b1b8'
+  }
+
+  /**
+   * A judgement was given by a registrar.
+   */
+  get asV3(): {target: Uint8Array, registrarIndex: number} {
+    assert(this.isV3)
+    return this._chain.decodeEvent(this.event)
+  }
+}
+
 export class TokensTransferEvent {
   private readonly _chain: Chain
   private readonly event: Event

@@ -50,6 +50,50 @@ export const processor = new SubstrateBatchProcessor()
         },
       },
     },
+  } as const)
+  .addEvent("Identity.IdentitySet", {
+    data: {
+      event: {
+        args: true,
+        extrinsic: {
+          hash: true,
+          fee: true,
+        },
+      },
+    },
+  } as const)
+  .addEvent("Identity.IdentityKilled", {
+    data: {
+      event: {
+        args: true,
+        extrinsic: {
+          hash: true,
+          fee: true,
+        },
+      },
+    },
+  } as const)
+  .addEvent("Identity.IdentityCleared", {
+    data: {
+      event: {
+        args: true,
+        extrinsic: {
+          hash: true,
+          fee: true,
+        },
+      },
+    },
+  } as const)
+  .addEvent("Identity.JudgementGiven", {
+    data: {
+      event: {
+        args: true,
+        extrinsic: {
+          hash: true,
+          fee: true,
+        },
+      },
+    },
   } as const);
 
 export type Item = BatchProcessorItem<typeof processor>;
