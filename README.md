@@ -318,7 +318,6 @@ For more details, consult [Docs](https://docs.subsquid.io/reference/api-extensio
 query MyQuery {
   accountById(id: "gMUYn4gzb8g6CfpPLTrz43j3qsQStv82HuoQz8f18ehUpcceT") {
     id
-    balanceGMGN
     receivedGMGN
     sentGMGN
     display

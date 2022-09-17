@@ -1,18 +1,13 @@
 import { TypeormDatabase } from "@subsquid/typeorm-store";
 import { In } from "typeorm";
 import { Account, Transfer } from "../model";
-import {
-  IdentityIdentityOfStorage,
-  SystemAccountStorage,
-  TokensAccountsStorage,
-} from "../types/storage";
+import { IdentityIdentityOfStorage } from "../types/storage";
 import { getAccount } from "./getAccount";
 import { getFrenBurnedEvents } from "./getFrenBurnedEvents";
 import { getTransferEvents } from "./getTransferEvents";
 import { processor } from "./processor";
 import * as ss58 from "@subsquid/ss58";
 import { GMORDIE_PREFIX } from "./common";
-import { readRawValue } from "./readRawValue";
 import { getIdentity } from "./getIdentity";
 import { getJudgementEvents } from "./getJudgementEvents";
 
@@ -38,15 +33,7 @@ processor.run(new TypeormDatabase(), async (ctx) => {
   const transfers: Transfer[] = [];
 
   for (const t of transfersData) {
-    const {
-      id,
-      blockNumber,
-      timestamp,
-      extrinsicHash,
-      amount,
-      fee,
-      currencyId,
-    } = t;
+    const { id, blockNumber, timestamp, extrinsicHash, amount, currencyId } = t;
 
     const from = getAccount(accounts, t.from);
     const to = getAccount(accounts, t.to);
@@ -60,29 +47,21 @@ processor.run(new TypeormDatabase(), async (ctx) => {
         from,
         to,
         amount,
-        fee,
         currency: currencyId,
       })
     );
 
     if (currencyId === "GM") {
-      from.sentGM += amount;
       from.sentGMGN += amount;
-      to.receivedGM += amount;
       to.receivedGMGN += amount;
     } else if (currencyId === "GN") {
-      from.sentGN += amount;
       from.sentGMGN += amount;
-      to.receivedGN += amount;
       to.receivedGMGN += amount;
     }
   }
 
   for (const fb of frenBurnedData) {
     const account = getAccount(accounts, fb.accountId);
-    account.burnedForGM += fb.burnedForGM;
-    account.burnedForGN += fb.burnedForGN;
-    account.burnedForGMGN += fb.burnedForGM + fb.burnedForGN;
     account.burnedForNothing += fb.burnedForNothing;
     account.burnedTotal +=
       fb.burnedForGM + fb.burnedForGN + fb.burnedForNothing;
@@ -93,26 +72,26 @@ processor.run(new TypeormDatabase(), async (ctx) => {
   if (arAccountIds.length) {
     const block = ctx.blocks[ctx.blocks.length - 1];
 
-    const sysAccountStorage = new SystemAccountStorage(ctx, block.header);
-    const tokensStorage = new TokensAccountsStorage(ctx, block.header);
+    // const sysAccountStorage = new SystemAccountStorage(ctx, block.header);
+    // const tokensStorage = new TokensAccountsStorage(ctx, block.header);
     const identityOfStorage = new IdentityIdentityOfStorage(ctx, block.header);
 
-    const [frenData, gmData, gnData, identityOfData] = await Promise.all([
-      sysAccountStorage.getManyAsV3(
-        arAccountIds.map((a) => ss58.codec(GMORDIE_PREFIX).decode(a))
-      ),
-      tokensStorage.getManyAsV3(
-        arAccountIds.map((a) => [
-          ss58.codec(GMORDIE_PREFIX).decode(a),
-          { __kind: "GM" },
-        ])
-      ),
-      tokensStorage.getManyAsV3(
-        arAccountIds.map((a) => [
-          ss58.codec(GMORDIE_PREFIX).decode(a),
-          { __kind: "GN" },
-        ])
-      ),
+    const [identityOfData] = await Promise.all([
+      // sysAccountStorage.getManyAsV3(
+      //   arAccountIds.map((a) => ss58.codec(GMORDIE_PREFIX).decode(a))
+      // ),
+      // tokensStorage.getManyAsV3(
+      //   arAccountIds.map((a) => [
+      //     ss58.codec(GMORDIE_PREFIX).decode(a),
+      //     { __kind: "GM" },
+      //   ])
+      // ),
+      // tokensStorage.getManyAsV3(
+      //   arAccountIds.map((a) => [
+      //     ss58.codec(GMORDIE_PREFIX).decode(a),
+      //     { __kind: "GN" },
+      //   ])
+      // ),
       identityOfStorage.getManyAsV3(
         arAccountIds.map((a) => ss58.codec(GMORDIE_PREFIX).decode(a))
       ),
@@ -122,22 +101,15 @@ processor.run(new TypeormDatabase(), async (ctx) => {
       const accountId = arAccountIds[i];
       const account = getAccount(accounts, accountId);
 
-      const fren = frenData[i];
-      const gm = gmData[i];
-      const gn = gnData[i];
-
-      account.balanceFREN = fren.data.free + fren.data.reserved;
-      account.balanceGM = gm.free + gm.reserved + gm.frozen;
-      account.balanceGN = gn.free + gn.reserved + gn.frozen;
-      account.balanceGMGN = account.balanceGM + account.balanceGN;
-
       const identity = identityOfData[i];
-      const { display, discord, twitter, verified } = getIdentity(identity);
+      const { display, discord, twitter, verified, judgement } =
+        getIdentity(identity);
 
       account.display = display;
       account.discord = discord;
       account.twitter = twitter;
       account.verified = verified;
+      account.judgement = judgement;
     }
   }
 

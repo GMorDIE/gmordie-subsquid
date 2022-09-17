@@ -24,7 +24,6 @@ export const processor = new SubstrateBatchProcessor()
         args: true,
         extrinsic: {
           hash: true,
-          fee: true,
         },
       },
     },
@@ -35,7 +34,6 @@ export const processor = new SubstrateBatchProcessor()
         args: true,
         extrinsic: {
           hash: true,
-          fee: true,
         },
       },
     },
@@ -46,7 +44,6 @@ export const processor = new SubstrateBatchProcessor()
         args: true,
         extrinsic: {
           hash: true,
-          fee: true,
         },
       },
     },
@@ -55,10 +52,6 @@ export const processor = new SubstrateBatchProcessor()
     data: {
       event: {
         args: true,
-        extrinsic: {
-          hash: true,
-          fee: true,
-        },
       },
     },
   } as const)
@@ -66,10 +59,6 @@ export const processor = new SubstrateBatchProcessor()
     data: {
       event: {
         args: true,
-        extrinsic: {
-          hash: true,
-          fee: true,
-        },
       },
     },
   } as const)
@@ -77,10 +66,6 @@ export const processor = new SubstrateBatchProcessor()
     data: {
       event: {
         args: true,
-        extrinsic: {
-          hash: true,
-          fee: true,
-        },
       },
     },
   } as const)
@@ -88,10 +73,6 @@ export const processor = new SubstrateBatchProcessor()
     data: {
       event: {
         args: true,
-        extrinsic: {
-          hash: true,
-          fee: true,
-        },
       },
     },
   } as const);
