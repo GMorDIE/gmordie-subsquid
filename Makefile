@@ -39,5 +39,11 @@ down:
 
 .PHONY: build serve process migrate codegen typegen up down
 
-deploy-preview:
-	@npx sqd squid update gmordie-frontend@preview -v -r
+# SAMPLE ONLY type it in terminal, make sure you supply an existing version
+# The squid won't be vailable during reset+update
+# update-reset-preview:
+# 	@npx sqd squid update gmordie-frontend@preview -v -r
+
+# SAMPLE ONLY type it in terminal, make sure you supply a non-existing version
+deploy-new-release:
+	@npx sqd squid release gmordie-frontend@v2 -v
