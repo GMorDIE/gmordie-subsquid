@@ -24,49 +24,16 @@ class Account implements Omit<AccountModel, "transfersTo" | "transfersFrom"> {
   id!: string;
 
   @Field(() => BigInt, { nullable: false })
-  sentGM!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  sentGN!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
   sentGMGN!: bigint;
 
   @Field(() => BigInt, { nullable: false })
-  receivedGM!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  receivedGN!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
   receivedGMGN!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  burnedForGM!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  burnedForGN!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  burnedForGMGN!: bigint;
 
   @Field(() => BigInt, { nullable: false })
   burnedForNothing!: bigint;
 
   @Field(() => BigInt, { nullable: false })
   burnedTotal!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  balanceGM!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  balanceGN!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  balanceGMGN!: bigint;
-
-  @Field(() => BigInt, { nullable: false })
-  balanceFREN!: bigint;
 
   @Field(() => String, { nullable: true })
   display!: string | undefined | null;
@@ -76,6 +43,9 @@ class Account implements Omit<AccountModel, "transfersTo" | "transfersFrom"> {
 
   @Field(() => String, { nullable: true })
   twitter!: string | undefined | null;
+
+  @Field(() => String, { nullable: true })
+  judgement!: string | undefined | null;
 
   @Field(() => Boolean, { nullable: true })
   verified!: boolean | undefined | null;
@@ -97,7 +67,6 @@ class RankedAccount {
 enum RankBy {
   sent = "sent_gmgn",
   received = "received_gmgn",
-  balance = "balance_gmgn",
 }
 
 enum SortDirection {

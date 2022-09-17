@@ -38,7 +38,4 @@ export class Transfer {
   @Index_()
   @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
   amount!: bigint
-
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  fee!: bigint
 }

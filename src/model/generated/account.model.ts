@@ -22,39 +22,11 @@ export class Account {
 
   @Index_()
   @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  sentGM!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  sentGN!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
   sentGMGN!: bigint
 
   @Index_()
   @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  receivedGM!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  receivedGN!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
   receivedGMGN!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  burnedForGM!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  burnedForGN!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  burnedForGMGN!: bigint
 
   @Index_()
   @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
@@ -64,22 +36,6 @@ export class Account {
   @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
   burnedTotal!: bigint
 
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  balanceGM!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  balanceGN!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  balanceGMGN!: bigint
-
-  @Index_()
-  @Column_("numeric", {transformer: marshal.bigintTransformer, nullable: false})
-  balanceFREN!: bigint
-
   @Column_("text", {nullable: true})
   display!: string | undefined | null
 
@@ -88,6 +44,9 @@ export class Account {
 
   @Column_("text", {nullable: true})
   twitter!: string | undefined | null
+
+  @Column_("text", {nullable: true})
+  judgement!: string | undefined | null
 
   @Column_("bool", {nullable: true})
   verified!: boolean | undefined | null
