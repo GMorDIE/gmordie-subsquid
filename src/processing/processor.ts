@@ -16,7 +16,7 @@ export const processor = new SubstrateBatchProcessor()
         "0x19a3733beb9cb8a970a308d835599e9005e02dc007a35440e461a451466776f8",
     }),
     // specify chain RPC for storage queries
-    chain: "wss://kusama.gmordie.com",
+    chain: "wss://leemo.gmordie.com",
   })
   .addEvent("Balances.Transfer", {
     data: {
