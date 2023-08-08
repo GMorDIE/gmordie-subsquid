@@ -19,28 +19,28 @@ export const getJudgementEvents = (ctx: Ctx) => {
     for (let item of block.items) {
       if (item.name == "Identity.JudgementGiven") {
         const e = new IdentityJudgementGivenEvent(ctx, item.event);
-        const { target } = e.asV3;
+        const { target } = e.asTemplateParachainV3;
         results.push({
           accountId: ss58.codec(GMORDIE_PREFIX).encode(target),
         });
       }
       if (item.name === "Identity.IdentityKilled") {
         const e = new IdentityIdentityKilledEvent(ctx, item.event);
-        const { who } = e.asV3;
+        const { who } = e.asTemplateParachainV3;
         results.push({
           accountId: ss58.codec(GMORDIE_PREFIX).encode(who),
         });
       }
       if (item.name === "Identity.IdentityCleared") {
         const e = new IdentityIdentityClearedEvent(ctx, item.event);
-        const { who } = e.asV3;
+        const { who } = e.asTemplateParachainV3;
         results.push({
           accountId: ss58.codec(GMORDIE_PREFIX).encode(who),
         });
       }
       if (item.name === "Identity.IdentitySet") {
         const e = new IdentityIdentitySetEvent(ctx, item.event);
-        const { who } = e.asV3;
+        const { who } = e.asTemplateParachainV3;
         results.push({
           accountId: ss58.codec(GMORDIE_PREFIX).encode(who),
         });

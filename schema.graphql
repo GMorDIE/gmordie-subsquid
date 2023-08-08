@@ -3,27 +3,10 @@ type Account @entity {
   id: ID!
   transfersTo: [Transfer!] @derivedFrom(field: "to")
   transfersFrom: [Transfer!] @derivedFrom(field: "from")
-  # tokensGM: BigInt!
-  # tokensGN: BigInt!
-  # tokensGMGN: BigInt!
-  # sentGM: BigInt! @index
-  # sentGN: BigInt! @index
   sentGMGN: BigInt! @index
-  # receivedGM: BigInt! @index
-  # receivedGN: BigInt! @index
   receivedGMGN: BigInt! @index
-  # mintedGM: BigInt!
-  # mintedGN: BigInt!
-  # mintedGMGN: BigInt!
-  # burnedForGM: BigInt! @index
-  # burnedForGN: BigInt! @index
-  # burnedForGMGN: BigInt! @index
   burnedForNothing: BigInt! @index
   burnedTotal: BigInt! @index
-  # balanceGM: BigInt! @index
-  # balanceGN: BigInt! @index
-  # balanceGMGN: BigInt! @index
-  # balanceFREN: BigInt! @index
   display: String
   discord: String
   twitter: String
@@ -40,5 +23,4 @@ type Transfer @entity {
   to: Account! @index
   currency: String! @index
   amount: BigInt! @index
-  # fee: BigInt! # fee is calculated at the best effort and may be zero for some old extrinsics
 }

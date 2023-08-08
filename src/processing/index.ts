@@ -72,27 +72,10 @@ processor.run(new TypeormDatabase(), async (ctx) => {
   if (arAccountIds.length) {
     const block = ctx.blocks[ctx.blocks.length - 1];
 
-    // const sysAccountStorage = new SystemAccountStorage(ctx, block.header);
-    // const tokensStorage = new TokensAccountsStorage(ctx, block.header);
     const identityOfStorage = new IdentityIdentityOfStorage(ctx, block.header);
 
     const [identityOfData] = await Promise.all([
-      // sysAccountStorage.getManyAsV3(
-      //   arAccountIds.map((a) => ss58.codec(GMORDIE_PREFIX).decode(a))
-      // ),
-      // tokensStorage.getManyAsV3(
-      //   arAccountIds.map((a) => [
-      //     ss58.codec(GMORDIE_PREFIX).decode(a),
-      //     { __kind: "GM" },
-      //   ])
-      // ),
-      // tokensStorage.getManyAsV3(
-      //   arAccountIds.map((a) => [
-      //     ss58.codec(GMORDIE_PREFIX).decode(a),
-      //     { __kind: "GN" },
-      //   ])
-      // ),
-      identityOfStorage.getManyAsV3(
+      identityOfStorage.asTemplateParachainV3.getMany(
         arAccountIds.map((a) => ss58.codec(GMORDIE_PREFIX).decode(a))
       ),
     ]);

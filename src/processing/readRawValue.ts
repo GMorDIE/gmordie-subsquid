@@ -1,4 +1,4 @@
-import { Data } from "../types/v3";
+import { Data } from "../types/templateParachainV3";
 
 export const readRawValue = (data?: Data) => {
   if (data?.__kind === "None") return null;

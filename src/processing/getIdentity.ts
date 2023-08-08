@@ -1,4 +1,4 @@
-import { Registration } from "../types/v3";
+import { Registration } from "../types/templateParachainV3";
 import { readRawValue } from "./readRawValue";
 
 const getDiscord = (registration?: Registration) => {

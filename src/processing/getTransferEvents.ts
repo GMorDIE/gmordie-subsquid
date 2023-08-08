@@ -21,7 +21,7 @@ export function getTransferEvents(ctx: Ctx): TransferEvent[] {
     for (let item of block.items) {
       if (item.name === "Tokens.Transfer") {
         const e = new TokensTransferEvent(ctx, item.event);
-        const { amount, currencyId, from, to } = e.asV3;
+        const { amount, currencyId, from, to } = e.asTemplateParachainV3;
         const tokenTransfer: TransferEvent = {
           id: item.event.id,
           blockNumber: block.header.height,

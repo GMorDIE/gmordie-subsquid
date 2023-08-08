@@ -17,7 +17,7 @@ export const getFrenBurnedEvents = (ctx: Ctx) => {
     for (let item of block.items) {
       if (item.name == "Currencies.FrenBurned") {
         const e = new CurrenciesFrenBurnedEvent(ctx, item.event);
-        const { amount, whatTheyGot, who } = e.asV3;
+        const { amount, whatTheyGot, who } = e.asTemplateParachainV3;
 
         const result: FrenBurnedEvent = {
           accountId: ss58.codec(GMORDIE_PREFIX).encode(who),
